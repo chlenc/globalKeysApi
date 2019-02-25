@@ -1,0 +1,38 @@
+-- "--" это значит комментарий
+
+-- Везде используйте только одинарные прямые ковычки
+
+-- values   (name string, city_id int, photo_url string ), name - название отеля. city_id - id города(Список кину ниже).
+--          (name string, city_id int, photo_url string ), photo_url - просто ссылка на фото (ПКМ - скопировать url изображения)
+--          (name string, city_id int, photo_url string );
+
+values ('Four Seasons', 1, 'http://rating.msk.ru/img/hotels/four_seasons/thumb/four_seasons_thumb.jpg'),
+       ('Лотте Москва', 1, 'http://rating.msk.ru/img/hotels/lotte/thumb/lotte_thumb.jpg'),
+       ('Националь', 1, 'http://rating.msk.ru/img/hotels/nacional/thumb/nacional_thumb.jpg'),
+       ('Свиссотель Красные Холмы', 1, 'http://rating.msk.ru/img/hotels/jazz_hotel/thumb/jazz_hotel_thumb.jpg'),
+       ('Арарат Парк Хаятт', 1, 'http://rating.msk.ru/img/hotels/mirit/thumb/mirit_thumb.jpg'),
+       ('Baltschug Kempinski', 1, 'http://rating.msk.ru/img/hotels/medeya/thumb/medeya_thumb.jpg'),
+       ('The Ritz-Carlton Moscow', 1, 'http://rating.msk.ru/img/hotels/savoy/thumb/savoy_thumb.jpg'),
+       ('Метрополь', 1, 'http://rating.msk.ru/img/hotels/metropol/thumb/metropol_thumb.jpg'),
+       ('Moscow Marriott Royal Aurora', 1, 'http://rating.msk.ru/img/hotels/domino_hotel/thumb/domino_hotel_thumb.jpg'),
+----SPB
+       ('Belmond Grand Hotel Europe', 2, 'http://where.ru/media/pic/ano/7/grand_otel_evropa.jpg'),
+       ('Талион Империал Отель', 2, 'http://where.ru/media/pic/ano/5/taleon_imperial_hotel__talion_imperial_otel.jpg'),
+       ('Отель “Кемпински Мойка 22”', 2, 'http://where.ru/media/pic/ano/4/otel_kempinski_moyka_22_.jpg'),
+       ('Отель “Астория”', 2, 'http://where.ru/media/pic/ano/9/rfh_hotel_astoria.jpg'),
+       ('W St. Petersburg', 2, 'http://where.ru/media/pic/ano/5/who3270gr111762minijpgjpg.jpg');
+
+
+--     Таблица  городов и их id
+--       city_id    |  city_name
+---------------------------------------
+--       1	        |  Москва
+--       2      	|  Санкт-Петербург
+--       3      	|  Тюмень
+--       4      	|  Грозный
+--       5      	|  Казань
+--       6      	|  Краснодар
+--       7      	|  Уфа
+--       8      	|  Новосибирск
+--       9      	|  Красноярск
+--       10     	|  Кемерово
