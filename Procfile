@@ -1,1 +1,1 @@
-web: likeApp
+web: globalKeys
