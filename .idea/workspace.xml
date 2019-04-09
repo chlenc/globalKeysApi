@@ -144,7 +144,7 @@
         <counts>
           <entry key="Procfile" value="10" />
           <entry key="css" value="160" />
-          <entry key="go" value="4158" />
+          <entry key="go" value="4166" />
           <entry key="html" value="1487" />
           <entry key="sh" value="97" />
           <entry key="sql" value="4460" />
@@ -156,7 +156,7 @@
         <counts>
           <entry key="Bash" value="97" />
           <entry key="CSS" value="160" />
-          <entry key="Go" value="4158" />
+          <entry key="Go" value="4166" />
           <entry key="HTML" value="1487" />
           <entry key="PLAIN_TEXT" value="529" />
           <entry key="SQL" value="3622" />
@@ -177,8 +177,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="39" column="77" selection-start-line="39" selection-start-column="77" selection-end-line="39" selection-end-column="77" />
+            <state relative-caret-position="274">
+              <caret line="39" column="91" selection-start-line="39" selection-start-column="91" selection-end-line="39" selection-end-column="91" />
             </state>
           </provider>
         </entry>
@@ -228,7 +228,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>`</find>
       <find>updated_at TIMESTAMP    NOT NULL,</find>
       <find>user</find>
       <find>citys</find>
@@ -258,6 +257,7 @@
       <find>search</find>
       <find>Hotels</find>
       <find>tr_new_room</find>
+      <find>alesenka</find>
     </findStrings>
     <replaceStrings>
       <replace>cover</replace>
@@ -436,7 +436,7 @@
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17668097" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.05937053" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -603,8 +603,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="39" column="77" selection-start-line="39" selection-start-column="77" selection-end-line="39" selection-end-column="77" />
+        <state relative-caret-position="274">
+          <caret line="39" column="91" selection-start-line="39" selection-start-column="91" selection-end-line="39" selection-end-column="91" />
         </state>
       </provider>
     </entry>
