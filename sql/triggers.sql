@@ -8,7 +8,9 @@ BEGIN
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
 DROP TRIGGER IF EXISTS tr_new_room ON rooms;
+
 CREATE TRIGGER tr_new_room AFTER INSERT ON rooms
   FOR EACH ROW EXECUTE PROCEDURE new_room();
 

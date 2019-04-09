@@ -7,7 +7,6 @@
     <file url="file://$PROJECT_DIR$/sql/drop_tables.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/sql/fill_rooms.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/sql/shema.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/sql/trash/transactions.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/sql/triggers.sql" dialect="PostgreSQL" />
   </component>
 </project>

@@ -37,7 +37,7 @@ type City struct {
 
 func main() {
 
-	db, err := sql.Open("postgres", "host=localhost port=5432 dbname=postgres user=alesenka sslmode=disable")
+	db, err := sql.Open("postgres", "host=localhost port=5432 dbname=postgres user=postgres sslmode=disable")
 	db.SetMaxOpenConns(10)
 	if err != nil {
 		log.Println("failed to connect database", err)
