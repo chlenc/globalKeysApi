@@ -235,7 +235,6 @@ func (app *App) getRooms(c *gin.Context) {
 	var items []*TRooms
 
 	id, isId := c.GetQuery("id")
-	//id, isId := c.GetQuery("city")
 	hotel, isHotel := c.GetQuery("hotel")
 	if isId {
 		data := &TRooms{}

@@ -61,6 +61,30 @@ Type | Dethod |  Required parameters | Optional parameters | Description
 ---- | ------ | -------------------- | ------------------- | -----------
 GET | /api/hotel |  | id, city | Get hotels list
 
+
+## Rooms api
+
+##### Data format
+
+Name | Type | Required | Default value | Description
+---- | ---- | -------- |-------------- |-------------
+id | autoincrement int | false |  | Increments by 1 as data is added
+room | int | true |  | Room number
+persons | int | true |  | How many people fit in a room
+floor | int | false | 1 | Room floor
+housing | int | false | 1 | Room housing
+description | HTML | false | 'Нет описания' | Description in HTML
+price | int | false | 1 | Price per day
+city_id | int | false | 0 | City id
+hotel_id | int | true |  | Hotel id
+
+
+##### Avalible methods
+Type | Dethod |  Required parameters | Optional parameters | Description
+---- | ------ | -------------------- | ------------------- | -----------
+GET | /api/room |  | id, hotel | Get rooms list
+
+
 ## Bookings api
 
 ##### Data format
