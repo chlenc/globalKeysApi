@@ -16,7 +16,7 @@ type App struct {
 	db *sql.DB
 }
 
-type Hotel struct {
+type THotel struct {
 	Id          int     `json:"id"`
 	Name        string  `json:"name"`
 	Country     string  `json:"country"`
@@ -29,7 +29,7 @@ type Hotel struct {
 	CityId      int     `json:"cityId"`
 }
 
-type City struct {
+type TCity struct {
 	Id     int    `json:"id"`
 	Name   string `json:"name"`
 	Photo  string `json:"photo"`
@@ -37,7 +37,7 @@ type City struct {
 	Rooms  int    `json:"rooms"`
 }
 
-type Booking struct {
+type TBooking struct {
 	Id            int     `json:"id"`
 	StartDatetime string  `json:"startDatetime"`
 	EndDatetime   string  `json:"endDatetime"`
@@ -45,6 +45,18 @@ type Booking struct {
 	HotelId       int     `json:"hotelId"`
 	RoomId        int     `json:"roomId"`
 	CustomerId    int     `json:"customerId"`
+}
+
+type TRooms struct {
+	Id          int    `json:"id"`
+	Room        int    `json:"room"`
+	Persons     int    `json:"persons"`
+	Floor       int    `json:"floor"`
+	Housing     int    `json:"housing"`
+	Description string `json:"description"`
+	Price       int    `json:"price"`
+	CityId      int    `json:"city_id"`
+	HotelId     int    `json:"hotel_id"`
 }
 
 func main() {
@@ -85,6 +97,7 @@ func (app *App) initializeRoutes(r *gin.Engine) {
 	{
 		apiRoutes.GET("/city", app.getCities)
 		apiRoutes.GET("/hotel", app.getHotels)
+		apiRoutes.GET("/room", app.getRooms)
 		apiRoutes.GET("/booking", app.getBookings)
 		apiRoutes.POST("/booking", app.addBooking)
 
@@ -97,11 +110,11 @@ func (app *App) initializeRoutes(r *gin.Engine) {
 }
 
 func (app *App) getBookings(c *gin.Context) {
-	var items []*Booking
+	var items []*TBooking
 
 	booking, isbooking := c.GetQuery("id")
 	if isbooking {
-		data := &Booking{}
+		data := &TBooking{}
 		app.db.QueryRow("select * from bookings where id = $1", booking).Scan(
 			&data.Id,
 			&data.StartDatetime,
@@ -119,7 +132,7 @@ func (app *App) getBookings(c *gin.Context) {
 		}
 		defer rows.Close()
 		for rows.Next() {
-			data := &Booking{}
+			data := &TBooking{}
 			err := rows.Scan(&data.Id, &data.StartDatetime, &data.EndDatetime, &data.Cost, &data.HotelId, &data.RoomId,
 				&data.CustomerId)
 			if err == nil {
@@ -160,12 +173,12 @@ func (app *App) addBooking(c *gin.Context) {
 
 func (app *App) getHotels(c *gin.Context) {
 
-	var items []*Hotel
+	var items []*THotel
 
 	id, isId := c.GetQuery("id")
 	city, isCity := c.GetQuery("city")
 	if isId {
-		data := &Hotel{}
+		data := &THotel{}
 		app.db.QueryRow("select * from hotels where id = $1", id).Scan(
 			&data.Id,
 			&data.Name,
@@ -194,7 +207,7 @@ func (app *App) getHotels(c *gin.Context) {
 		}
 		defer rows.Close()
 		for rows.Next() {
-			data := &Hotel{}
+			data := &THotel{}
 			err := rows.Scan(
 				&data.Id,
 				&data.Name,
@@ -217,13 +230,69 @@ func (app *App) getHotels(c *gin.Context) {
 	render(c, gin.H{"payload": items})
 }
 
+func (app *App) getRooms(c *gin.Context) {
+
+	var items []*TRooms
+
+	id, isId := c.GetQuery("id")
+	//id, isId := c.GetQuery("city")
+	hotel, isHotel := c.GetQuery("hotel")
+	if isId {
+		data := &TRooms{}
+		app.db.QueryRow("select * from rooms where id = $1", id).Scan(
+			&data.Id,
+			&data.Room,
+			&data.Persons,
+			&data.Floor,
+			&data.Housing,
+			&data.Description,
+			&data.Price,
+			&data.CityId,
+			&data.HotelId,
+		)
+		items = append(items, data)
+	} else {
+		var rows *sql.Rows
+		var err error
+		if isHotel {
+			rows, err = app.db.Query("SELECT * FROM rooms where hotel_id = $1 ORDER BY id asc", hotel)
+		} else {
+			rows, err = app.db.Query("SELECT * FROM rooms ORDER BY id asc")
+		}
+		if isError(err, "Не удалось получить данные о комнатах") {
+			render(c, gin.H{"payload": "not found"})
+		}
+		defer rows.Close()
+		for rows.Next() {
+			data := &TRooms{}
+			err := rows.Scan(
+				&data.Id,
+				&data.Room,
+				&data.Persons,
+				&data.Floor,
+				&data.Housing,
+				&data.Description,
+				&data.Price,
+				&data.CityId,
+				&data.HotelId,
+			)
+			if err == nil {
+				items = append(items, data)
+			} else {
+				log.Println(err)
+			}
+		}
+	}
+	render(c, gin.H{"payload": items})
+}
+
 func (app *App) getCities(c *gin.Context) {
 
-	var items []*City
+	var items []*TCity
 
 	city, isCity := c.GetQuery("id")
 	if isCity {
-		data := &City{}
+		data := &TCity{}
 		app.db.QueryRow("select * from cities where id = $1", city).Scan(
 			&data.Id,
 			&data.Name,
@@ -241,7 +310,7 @@ func (app *App) getCities(c *gin.Context) {
 		}
 		defer rows.Close()
 		for rows.Next() {
-			data := &City{}
+			data := &TCity{}
 			err := rows.Scan(&data.Id, &data.Name, &data.Photo, &data.Offers, &data.Rooms)
 			if err == nil {
 				items = append(items, data)
