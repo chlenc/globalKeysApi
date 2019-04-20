@@ -74,8 +74,8 @@ func main() {
 	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password)
 	fmt.Println(dbUri)
 
-	//db, err := sql.Open("postgres", dbUri)
-	db, err := sql.Open("postgres", "host=localhost user=postgres dbname=postgres port="+"5432"+" sslmode=disable")
+	db, err := sql.Open("postgres", dbUri)
+	//db, err := sql.Open("postgres", "host=localhost user=postgres dbname=postgres port="+"5432"+" sslmode=disable")
 	db.SetMaxOpenConns(10)
 	if err != nil {
 		log.Println("failed to connect database", err)
