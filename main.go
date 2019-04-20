@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
@@ -73,8 +74,8 @@ func main() {
 	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password)
 	fmt.Println(dbUri)
 
-	db, err := sql.Open("postgres", dbUri)
-	//"host=localhost user=postgres dbname=postgres port="+port+" sslmode=disable")
+	//db, err := sql.Open("postgres", dbUri)
+	db, err := sql.Open("postgres", "host=localhost user=postgres dbname=postgres port="+"5432"+" sslmode=disable")
 	db.SetMaxOpenConns(10)
 	if err != nil {
 		log.Println("failed to connect database", err)
@@ -146,18 +147,31 @@ func (app *App) getBookings(c *gin.Context) {
 }
 
 func (app *App) addBooking(c *gin.Context) {
-	startDatetime := c.PostForm("start_datetime")
-	endDatetime := c.PostForm("end_datetime")
-	cost := c.PostForm("cost")
-	hotelId := c.PostForm("hotel_id")
-	roomId := c.PostForm("room_id")
-	customerId := c.PostForm("customer_id")
-	sqlStatement := `INSERT INTO bookings (start_datetime, end_datetime, cost, hotel_id, room_id, customer_id)
- 	  				 VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`
-	id := 0
-	var err = app.db.QueryRow(sqlStatement, startDatetime, endDatetime, cost, hotelId, roomId, customerId).Scan(&id)
+
+	decoder := json.NewDecoder(c.Request.Body)
+	var res TBooking
+	err := decoder.Decode(&res)
 	if err != nil {
-		panic(err)
+		c.JSON(http.StatusBadRequest, "invalid data, err: "+err.Error())
+		return
+	}
+
+	log.Println(res.CustomerId)
+	sqlStatement := `INSERT INTO bookings (start_datetime, end_datetime, cost, hotel_id, room_id, customer_id)
+ 	 				 VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`
+	id := 0
+	err = app.db.QueryRow(
+		sqlStatement,
+		res.StartDatetime,
+		res.EndDatetime,
+		res.Cost,
+		res.HotelId,
+		res.RoomId,
+		res.CustomerId,
+	).Scan(&id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, "database error, err: "+err.Error())
+		return
 	}
 }
 
