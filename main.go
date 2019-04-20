@@ -142,11 +142,7 @@ func (app *App) getBookings(c *gin.Context) {
 		}
 	}
 
-	if len(items) == 0 {
-		render(c, gin.H{"payload": "not found"})
-	} else {
-		render(c, gin.H{"payload": items})
-	}
+	render(c, gin.H{"payload": items})
 }
 
 func (app *App) addBooking(c *gin.Context) {
