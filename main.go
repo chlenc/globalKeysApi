@@ -9,7 +9,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 )
 
 type App struct {
@@ -151,13 +150,8 @@ func (app *App) getBookings(c *gin.Context) {
 }
 
 func (app *App) addBooking(c *gin.Context) {
-	layout := "2006-01-02T15:04:05.000Z"
-	startDatetime, startDatetimeErr := time.Parse(layout, c.PostForm("start_datetime"))
-	endDatetime, endDatetimeErr := time.Parse(layout, c.PostForm("end_datetime"))
-	if startDatetimeErr != nil || endDatetimeErr != nil {
-		c.JSON(http.StatusBadRequest, "invalid datetime")
-		return
-	}
+	startDatetime := c.PostForm("start_datetime")
+	endDatetime := c.PostForm("end_datetime")
 	cost := c.PostForm("cost")
 	hotelId := c.PostForm("hotel_id")
 	roomId := c.PostForm("room_id")

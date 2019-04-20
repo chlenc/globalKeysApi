@@ -45,8 +45,8 @@ CREATE TABLE rooms (
 
 CREATE TABLE bookings (
   id             SERIAL PRIMARY KEY,
-  start_datetime TIMESTAMP NOT NULL,
-  end_datetime   TIMESTAMP NOT NULL,
+  start_datetime VARCHAR(255) NOT NULL,
+  end_datetime   VARCHAR(255) NOT NULL,
   cost           INTEGER   NOT NULL,
   hotel_id       INTEGER   NOT NULL,
   FOREIGN KEY (hotel_id) references hotels (id),
