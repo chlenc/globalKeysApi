@@ -113,6 +113,8 @@ func (app *App) getBookings(c *gin.Context) {
 	var items []*TBooking
 
 	booking, isbooking := c.GetQuery("id")
+	hotel, ishotel := c.GetQuery("hotel")
+
 	if isbooking {
 		data := &TBooking{}
 		app.db.QueryRow("select * from bookings where id = $1", booking).Scan(
@@ -126,7 +128,13 @@ func (app *App) getBookings(c *gin.Context) {
 		)
 		items = append(items, data)
 	} else {
-		rows, err := app.db.Query("SELECT * FROM bookings ORDER BY id asc")
+		var rows *sql.Rows
+		var err error
+		if ishotel {
+			rows, err = app.db.Query("SELECT * FROM bookings where hotel_id = $1 ORDER BY id asc", hotel)
+		} else {
+			rows, err = app.db.Query("SELECT * FROM bookings ORDER BY id asc")
+		}
 		if isError(err, "Не удалось получить данные о брони") {
 			render(c, gin.H{"payload": "not found"})
 		}
