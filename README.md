@@ -103,7 +103,7 @@ customerId | int | true |  | Customer id
 ##### Avalible methods
 Type | Dethod |  Required parameters | Optional parameters | Description
 ---- | ------ | -------------------- | ------------------- | -----------
-GET | /api/booking |  | id | Get bookings list
+GET | /api/booking |  | id, hotel | Get bookings list
 POST | /api/booking | start_datetime, end_datetime, cost, hotel_id, room_id, customer_id | | Add new booking
 
 
